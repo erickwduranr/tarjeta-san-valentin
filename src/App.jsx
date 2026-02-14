@@ -62,8 +62,24 @@ export default function App() {
         >
           {!opened ? (
             <>
-              <h1 style={styles.title}>💖 Feliz San Valentín 💖</h1>
-              <p style={styles.text}>Tengo algo muy especial para ti...</p>
+              <h1
+                style={{
+                  ...styles.title,
+                  color: "#ff007f", // rosado fuerte
+                  fontStyle: "italic", // cursiva
+                }}
+              >
+                💖 Feliz San Valentín 💖
+              </h1>
+              <p
+                style={{
+                  ...styles.text,
+                  color: "#ff007f", // rosado fuerte
+                  fontStyle: "italic", // cursiva
+                }}
+              >
+                Un mensaje especial para ti Solange...
+              </p>
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
@@ -163,7 +179,6 @@ const styles = {
     zIndex: 1,
   },
   title: {
-    color: "#e91e63",
     fontSize: "28px",
   },
   subtitle: {
