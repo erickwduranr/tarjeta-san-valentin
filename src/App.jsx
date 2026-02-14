@@ -78,7 +78,7 @@ export default function App() {
                   fontStyle: "italic",
                 }}
               >
-                Un mensaje especial para ti Solange...
+                Un mensaje especial para ti Solange... 
               </p>
               <motion.button
                 whileHover={{ scale: 1.1 }}
