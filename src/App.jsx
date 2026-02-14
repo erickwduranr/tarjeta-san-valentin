@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import roseImage from "./assets/Rosa3.jpeg"; // Importa tu rosa local
+import roseImage from "./assets/Rosa3.jpeg"; // Imagen local
+import audioFile from "./assets/audio.mp3"; // Audio local
 
 export default function App() {
   const [opened, setOpened] = useState(false);
@@ -17,7 +18,7 @@ export default function App() {
           ...prev,
           { id, left: Math.random() * 90 + "%", size: Math.random() * 24 + 16 },
         ]);
-      }, 800); // más lento
+      }, 800);
       return () => clearInterval(heartInterval);
     }
   }, [opened]);
@@ -31,7 +32,7 @@ export default function App() {
           ...prev,
           { id, left: Math.random() * 90 + "%", rotate: Math.random() * 360 },
         ]);
-      }, 1000); // más lento
+      }, 1000);
       return () => clearInterval(petalInterval);
     }
   }, [opened]);
@@ -39,17 +40,16 @@ export default function App() {
   const handleOpen = () => {
     setOpened(true);
     if (audioRef.current) {
-      audioRef.current.play();
+      audioRef.current
+        .play()
+        .then(() => console.log("Audio iniciado"))
+        .catch((e) => console.log("Error al reproducir audio:", e));
     }
   };
 
   return (
     <div style={styles.container}>
-      <audio
-        ref={audioRef}
-        loop
-        src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=inspiring-cinematic-ambient-116199.mp3"
-      />
+      <audio ref={audioRef} loop src={audioFile} />
 
       <AnimatePresence>
         <motion.div
@@ -57,7 +57,7 @@ export default function App() {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.5 }} // entrada más lenta
+          transition={{ duration: 1.5 }}
           style={styles.card}
         >
           {!opened ? (
@@ -65,8 +65,8 @@ export default function App() {
               <h1
                 style={{
                   ...styles.title,
-                  color: "#ff007f", // rosado fuerte
-                  fontStyle: "italic", // cursiva
+                  color: "#ff007f",
+                  fontStyle: "italic",
                 }}
               >
                 💖 Feliz San Valentín 💖
@@ -74,11 +74,11 @@ export default function App() {
               <p
                 style={{
                   ...styles.text,
-                  color: "#ff007f", // rosado fuerte
-                  fontStyle: "italic", // cursiva
+                  color: "#ff007f",
+                  fontStyle: "italic",
                 }}
               >
-                Un mensaje especial para ti Solange...
+                Tengo algo muy especial para ti...
               </p>
               <motion.button
                 whileHover={{ scale: 1.1 }}
@@ -105,7 +105,7 @@ export default function App() {
                 alt="Rosa"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                transition={{ delay: 0.5, duration: 1.2 }} // animación más lenta
+                transition={{ delay: 0.5, duration: 1.2 }}
                 style={{ width: "80px", marginTop: "20px", borderRadius: "15px" }}
               />
 
@@ -119,7 +119,7 @@ export default function App() {
               key={heart.id}
               initial={{ y: 0, opacity: 1, scale: 0.5 }}
               animate={{ y: -800, opacity: 0, scale: 1 }}
-              transition={{ duration: 6, ease: "easeOut" }} // más lento
+              transition={{ duration: 6, ease: "easeOut" }}
               style={{
                 position: "absolute",
                 left: heart.left,
@@ -138,7 +138,7 @@ export default function App() {
               key={petal.id}
               initial={{ y: -50, opacity: 0.8, rotate: 0 }}
               animate={{ y: 700, opacity: 0, rotate: petal.rotate }}
-              transition={{ duration: 8, ease: "linear" }} // más lento
+              transition={{ duration: 8, ease: "linear" }}
               style={{
                 position: "absolute",
                 left: petal.left,
@@ -193,7 +193,7 @@ const styles = {
     fontSize: "18px",
     lineHeight: "1.6",
     fontStyle: "italic",
-    color: "#c2185b", // rosado fuerte
+    color: "#c2185b",
   },
   button: {
     backgroundColor: "#e91e63",
